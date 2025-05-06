@@ -1,0 +1,166 @@
+%matplotlib inline
+import scrublet as scr
+import scipy.io
+import matplotlib.pyplot as plt
+import numpy as np
+import os
+import pandas as pd
+plt.rcParams['font.family'] = 'sans-serif'
+plt.rcParams['font.sans-serif'] = 'Arial'
+plt.rc('font', size=14)
+plt.rcParams['pdf.fonttype'] = 42
+
+### BM00 ###
+input_dir = '/project/fsepru/FAANG1/Filtered/BM00/'
+BM00_counts_matrix = scipy.io.mmread(input_dir + 'matrix.mtx').T.tocsc()
+BM00_genes = np.array(scr.load_genes(input_dir + 'features.tsv', delimiter='\t', column=1))
+print('Counts matrix shape: {} rows, {} columns'.format(BM00_counts_matrix.shape[0], BM00_counts_matrix.shape[1]))
+print('Number of genes in gene list: {}'.format(len(BM00_genes)))
+
+BM00_scrub = scr.Scrublet(BM00_counts_matrix, expected_doublet_rate=0.07)
+BM00_doublet_scores, BM00_predicted_doublets = BM00_scrub.scrub_doublets(min_counts=2, min_cells=3, min_gene_variability_pctl=85, n_prin_comps=30)
+BM00_scrub.call_doublets(threshold=0.25)
+BM00_scrub.plot_histogram();
+
+BM00_scrub.set_embedding('UMAP', scr.get_umap(BM00_scrub.manifold_obs_, 10, min_dist=0.3))
+BM00_scrub.plot_embedding('UMAP', order_points=True);
+
+pdBM00 = pd.DataFrame(BM00_scrub.doublet_scores_obs_)
+pd.DataFrame.to_csv(pdBM00, "BM00_ScrubScore.csv")
+### END ###
+
+### BM98 ###
+input_dir = '/project/fsepru/FAANG1/Filtered/BM98/'
+BM98_counts_matrix = scipy.io.mmread(input_dir + 'matrix.mtx').T.tocsc()
+BM98_genes = np.array(scr.load_genes(input_dir + 'features.tsv', delimiter='\t', column=1))
+print('Counts matrix shape: {} rows, {} columns'.format(BM98_counts_matrix.shape[0], BM98_counts_matrix.shape[1]))
+print('Number of genes in gene list: {}'.format(len(BM98_genes)))
+
+BM98_scrub = scr.Scrublet(BM98_counts_matrix, expected_doublet_rate=0.07)
+BM98_doublet_scores, BM98_predicted_doublets = BM98_scrub.scrub_doublets(min_counts=2, min_cells=3, min_gene_variability_pctl=85, n_prin_comps=30)
+BM98_scrub.call_doublets(threshold=0.25)
+BM98_scrub.plot_histogram();
+
+BM98_scrub.set_embedding('UMAP', scr.get_umap(BM98_scrub.manifold_obs_, 10, min_dist=0.3))
+BM98_scrub.plot_embedding('UMAP', order_points=True);
+
+pdBM98 = pd.DataFrame(BM98_scrub.doublet_scores_obs_)
+pd.DataFrame.to_csv(pdBM98, "BM98_ScrubScore.csv")
+### END ###
+
+### ICLN00 ###
+input_dir = '/project/fsepru/FAANG1/Filtered/ICLN00/'
+ICLN00_counts_matrix = scipy.io.mmread(input_dir + 'matrix.mtx').T.tocsc()
+ICLN00_genes = np.array(scr.load_genes(input_dir + 'features.tsv', delimiter='\t', column=1))
+print('Counts matrix shape: {} rows, {} columns'.format(ICLN00_counts_matrix.shape[0], ICLN00_counts_matrix.shape[1]))
+print('Number of genes in gene list: {}'.format(len(ICLN00_genes)))
+
+ICLN00_scrub = scr.Scrublet(ICLN00_counts_matrix, expected_doublet_rate=0.07)
+ICLN00_doublet_scores, ICLN00_predicted_doublets = ICLN00_scrub.scrub_doublets(min_counts=2, min_cells=3, min_gene_variability_pctl=85, n_prin_comps=30)
+ICLN00_scrub.call_doublets(threshold=0.25)
+ICLN00_scrub.plot_histogram();
+
+ICLN00_scrub.set_embedding('UMAP', scr.get_umap(ICLN00_scrub.manifold_obs_, 10, min_dist=0.3))
+ICLN00_scrub.plot_embedding('UMAP', order_points=True);
+
+pdICLN00 = pd.DataFrame(ICLN00_scrub.doublet_scores_obs_)
+pd.DataFrame.to_csv(pdICLN00, "ICLN00_ScrubScore.csv")
+### END ###
+
+### ICLN98 ###
+input_dir = '/project/fsepru/FAANG1/Filtered/ICLN98/'
+ICLN98_counts_matrix = scipy.io.mmread(input_dir + 'matrix.mtx').T.tocsc()
+ICLN98_genes = np.array(scr.load_genes(input_dir + 'features.tsv', delimiter='\t', column=1))
+print('Counts matrix shape: {} rows, {} columns'.format(ICLN98_counts_matrix.shape[0], ICLN98_counts_matrix.shape[1]))
+print('Number of genes in gene list: {}'.format(len(ICLN98_genes)))
+
+ICLN98_scrub = scr.Scrublet(ICLN98_counts_matrix, expected_doublet_rate=0.07)
+ICLN98_doublet_scores, ICLN98_predicted_doublets = ICLN98_scrub.scrub_doublets(min_counts=2, min_cells=3, min_gene_variability_pctl=85, n_prin_comps=30)
+ICLN98_scrub.call_doublets(threshold=0.25)
+ICLN98_scrub.plot_histogram();
+
+ICLN98_scrub.set_embedding('UMAP', scr.get_umap(ICLN98_scrub.manifold_obs_, 10, min_dist=0.3))
+ICLN98_scrub.plot_embedding('UMAP', order_points=True);
+
+pdICLN98 = pd.DataFrame(ICLN98_scrub.doublet_scores_obs_)
+pd.DataFrame.to_csv(pdICLN98, "ICLN98_ScrubScore.csv")
+### END ###
+
+### SP00 ###
+input_dir = '/project/fsepru/FAANG1/Filtered/SP00/'
+SP00_counts_matrix = scipy.io.mmread(input_dir + 'matrix.mtx').T.tocsc()
+SP00_genes = np.array(scr.load_genes(input_dir + 'features.tsv', delimiter='\t', column=1))
+print('Counts matrix shape: {} rows, {} columns'.format(SP00_counts_matrix.shape[0], SP00_counts_matrix.shape[1]))
+print('Number of genes in gene list: {}'.format(len(SP00_genes)))
+
+SP00_scrub = scr.Scrublet(SP00_counts_matrix, expected_doublet_rate=0.07)
+SP00_doublet_scores, SP00_predicted_doublets = SP00_scrub.scrub_doublets(min_counts=2, min_cells=3, min_gene_variability_pctl=85, n_prin_comps=30)
+SP00_scrub.call_doublets(threshold=0.25)
+SP00_scrub.plot_histogram();
+
+SP00_scrub.set_embedding('UMAP', scr.get_umap(SP00_scrub.manifold_obs_, 10, min_dist=0.3))
+SP00_scrub.plot_embedding('UMAP', order_points=True);
+
+pdSP00 = pd.DataFrame(SP00_scrub.doublet_scores_obs_)
+pd.DataFrame.to_csv(pdSP00, "SP00_ScrubScore.csv")
+### END ###
+
+### SP98 ###
+input_dir = '/project/fsepru/FAANG1/Filtered/SP98/'
+SP98_counts_matrix = scipy.io.mmread(input_dir + 'matrix.mtx').T.tocsc()
+SP98_genes = np.array(scr.load_genes(input_dir + 'features.tsv', delimiter='\t', column=1))
+print('Counts matrix shape: {} rows, {} columns'.format(SP98_counts_matrix.shape[0], SP98_counts_matrix.shape[1]))
+print('Number of genes in gene list: {}'.format(len(SP98_genes)))
+
+SP98_scrub = scr.Scrublet(SP98_counts_matrix, expected_doublet_rate=0.07)
+SP98_doublet_scores, SP98_predicted_doublets = SP98_scrub.scrub_doublets(min_counts=2, min_cells=3, min_gene_variability_pctl=85, n_prin_comps=30)
+SP98_scrub.call_doublets(threshold=0.25)
+SP98_scrub.plot_histogram();
+
+SP98_scrub.set_embedding('UMAP', scr.get_umap(SP98_scrub.manifold_obs_, 10, min_dist=0.3))
+SP98_scrub.plot_embedding('UMAP', order_points=True);
+
+pdSP98 = pd.DataFrame(SP98_scrub.doublet_scores_obs_)
+pd.DataFrame.to_csv(pdSP98, "SP98_ScrubScore.csv")
+### END ###
+
+### THY00 ###
+input_dir = '/project/fsepru/FAANG1/Filtered/THY00/'
+THY00_counts_matrix = scipy.io.mmread(input_dir + 'matrix.mtx').T.tocsc()
+THY00_genes = np.array(scr.load_genes(input_dir + 'features.tsv', delimiter='\t', column=1))
+print('Counts matrix shape: {} rows, {} columns'.format(THY00_counts_matrix.shape[0], THY00_counts_matrix.shape[1]))
+print('Number of genes in gene list: {}'.format(len(THY00_genes)))
+
+THY00_scrub = scr.Scrublet(THY00_counts_matrix, expected_doublet_rate=0.07)
+THY00_doublet_scores, THY00_predicted_doublets = THY00_scrub.scrub_doublets(min_counts=2, min_cells=3, min_gene_variability_pctl=85, n_prin_comps=30)
+THY00_scrub.call_doublets(threshold=0.25)
+THY00_scrub.plot_histogram();
+
+THY00_scrub.set_embedding('UMAP', scr.get_umap(THY00_scrub.manifold_obs_, 10, min_dist=0.3))
+THY00_scrub.plot_embedding('UMAP', order_points=True);
+
+pdTHY00 = pd.DataFrame(THY00_scrub.doublet_scores_obs_)
+pd.DataFrame.to_csv(pdTHY00, "THY00_ScrubScore.csv")
+### END ###
+
+### THY98 ###
+input_dir = '/project/fsepru/FAANG1/Filtered/THY98/'
+THY98_counts_matrix = scipy.io.mmread(input_dir + 'matrix.mtx').T.tocsc()
+THY98_genes = np.array(scr.load_genes(input_dir + 'features.tsv', delimiter='\t', column=1))
+print('Counts matrix shape: {} rows, {} columns'.format(THY98_counts_matrix.shape[0], THY98_counts_matrix.shape[1]))
+print('Number of genes in gene list: {}'.format(len(THY98_genes)))
+
+THY98_scrub = scr.Scrublet(THY98_counts_matrix, expected_doublet_rate=0.07)
+THY98_doublet_scores, THY98_predicted_doublets = THY98_scrub.scrub_doublets(min_counts=2, min_cells=3, min_gene_variability_pctl=85, n_prin_comps=30)
+THY98_scrub.call_doublets(threshold=0.25)
+THY98_scrub.plot_histogram();
+
+THY98_scrub.set_embedding('UMAP', scr.get_umap(THY98_scrub.manifold_obs_, 10, min_dist=0.3))
+THY98_scrub.plot_embedding('UMAP', order_points=True);
+
+pdTHY98 = pd.DataFrame(THY98_scrub.doublet_scores_obs_)
+pd.DataFrame.to_csv(pdTHY98, "THY98_ScrubScore.csv")
+### END ###
+
+### Dataset1 END ###
+
